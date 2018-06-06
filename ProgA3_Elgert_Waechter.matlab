@@ -16,7 +16,7 @@ end
 
 function denom = deNominator(x, step)
 
-	denom = x(step) - x(1);
+	denom = 1;
 
 	for i=2:step-1
 		denom = denom * (x(step)-x(i));
