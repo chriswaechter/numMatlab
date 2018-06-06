@@ -46,13 +46,7 @@ function y = Horner(x,a)
 
 end
  
-
-
-
-<<<<<<< HEAD
-=======
 function denom = deNenominator(x, step)
->>>>>>> 870580b186664b9d559b1a5dfb1b0471c88a016e
 	denom = 1;
 
 	for i=1:step-1
