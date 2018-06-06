@@ -14,11 +14,12 @@ function a = DivDiff(x,f)
 
 end
 
-function denom = denominator(x, step)
+function denom = deNominator(x, step)
 
 	denom = x(step) - x(1);
 
-	for i=1:step
-		denom = denom * (x(step)-x(i))
+	for i=2:step-1
+		denom = denom * (x(step)-x(i));
 	end
+	
 end
