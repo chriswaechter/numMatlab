@@ -48,6 +48,7 @@ end
  
 
 
+
 function denom = deNenominator(x, step)
 	denom = 1;
 
@@ -56,3 +57,4 @@ function denom = deNenominator(x, step)
 	end
 
 end
+
