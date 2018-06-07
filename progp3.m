@@ -1,11 +1,14 @@
+%Aufgabe aus letztem Übungsblatt:
 x=[-1,1,2]
-f=[2,6,4]
+f=[2,6,4] 
+%Lösung: a = 2, 2, -4/3
 
+%Beispielwerte aus dem Internet
 x2=[1,2,3,4]
-f2=[2,3,1,3] %a = 2, 1, -1.5, 7/6
+f2=[2,3,1,3]
+%Lösung: a = 2, 1, -1.5, 7/6
 
-%DivDiff(x, f);
-DivDiff(x2, f2);
+DivDiff(x, f);
 
 
 
@@ -16,7 +19,7 @@ function a = DivDiff(x,f)
 	%berechne a_i  's
 	for n=2:size(f,2)
 		temp = f(n);
-		
+
 		%berechne differenzen: a_0 - a_1*... -a_2* ...
 		for j=1:n-1
 
@@ -25,11 +28,11 @@ function a = DivDiff(x,f)
 			for i=2:j
 				produktklammern = (x(n) - x(i-1))*produktklammern;
 			end
-			temp = temp - produktklammern * a(i);
+			temp = temp - produktklammern * a(j);
+
 
 		end
-
-		a(n) = temp / deNenominator(x, n)
+		a(n) = temp / deNenominator(x, n);
 	end
 end
 
