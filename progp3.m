@@ -54,3 +54,4 @@ function denom = deNenominator(x, step)
 	end
 
 end
+
