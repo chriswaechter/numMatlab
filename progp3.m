@@ -1,12 +1,12 @@
-%Aufgabe aus letztem Ãœbungsblatt:
+%Aufgabe aus letztem Übungsblatt:
 x=[-1,1,2]
 f=[2,6,4] 
-%LÃ¶sung: a = 2, 2, -4/3
+%Lösung: a = 2, 2, -4/3
 
 %Beispielwerte aus dem Internet
 x2=[1,2,3,4]
 f2=[2,3,1,3]
-%LÃ¶sung: a = 2, 1, -1.5, 7/6
+%Lösung: a = 2, 1, -1.5, 7/6
 
 DivDiff(x, f);
 
@@ -41,12 +41,14 @@ end
 
 
 function y = Horner(x,a)
-
-
-
-
-
-
+    
+    temp = a(size(a));
+    
+    for i = size(a)-1:1
+        temp = temp * x +  a(i);
+    end
+    
+    y = temp;
 end
  
 function denom = deNenominator(x, step)
