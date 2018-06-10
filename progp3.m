@@ -73,7 +73,7 @@ function denom = deNenominator(x, step)
 	denom = 1;
 
 	for i=1:step-1
-		denom = denom * (x(step) - x(i))
+		denom = denom * (x(step) - x(i));
 	end
 
 end
