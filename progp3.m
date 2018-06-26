@@ -19,16 +19,18 @@ function plotCurves()
 
 		for k=0:n
 			%xNeu = 10*k/n-5; %1. Datensatz
-			xNeu = 5*cos((2*k+1)/(2*k+2)*pi); %2. Datensatz
-			x1 = [x1, xNeu];
+			xNeu = 5*cos((2*k+1)/(2*k+2)*pi) %2. Datensatz
+			x1 = [x1, xNeu]
 			f1 = [f1, 1/(xNeu^2+1)];
 		end
 		a1 = DivDiff(x1, f1);
-		x1
-		f(j,:) = Horner2(x1, a1, x)
+		x1;
+		f(j,:) = Horner2(x1, a1, x);
 		j=j+1;
 	end
-		plot(x, f(1,:), x, f(2,:), x, f(3,:), x, f(4,:));
+		%plot(x, f(4,:));
+		%xlabel('x');
+		%ylabel('f(x)');
 end
 
 
