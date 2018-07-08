@@ -6,14 +6,38 @@ quadratur(0,3,50,f,"Simpsonregel");
 %integral_0^3 cos(x) e^sin(x) dx = e^sin(3) - 1≈0.15156
 quad_plot(0,3,f)
 
-function quad_plot(a,b,f)
-	N = [2,4,8,16,32,64];
 
-	for index = numel(N)
-		quadratur(a,b,N(index),f,"Rechtecksregel");
-		quadratur(a,b,N(index),f,"Trapezregel");
-		quadratur(a,b,N(index),f,"Simpsonregel");
+function quad_plot(a,b,f)
+	global genaueLoesung;
+	N = [2,4,8,16,32,64];
+	rechteckErgebnisse = [];
+	trapezErgebnisse = [];
+	simpsonErgebnisse = [];
+	genaueLoesung = vpa(integral(f,a,b));
+	x = [];
+
+	for index = 1:numel(N)
+		rechteckErgebnisse = [rechteckErgebnisse, quadratur(a,b,N(index),f,"Rechtecksregel")]
+		trapezErgebnisse = [trapezErgebnisse, quadratur(a,b,N(index),f,"Trapezregel")]
+		simpsonErgebnisse = [simpsonErgebnisse, quadratur(a,b,N(index),f,"Simpsonregel")]
 	end
+
+	for index = 1:numel(N)
+		laengeDerIntervalle = (b-a)/N(index)
+		x = [x, laengeDerIntervalle]
+	end
+
+	rechteckFehler = calculateLogOfQuadError(rechteckErgebnisse);
+	trapezFehler = calculateLogOfQuadError(trapezErgebnisse);
+	simpsonFehler = calculateLogOfQuadError(simpsonErgebnisse);
+
+	loglog(x,rechteckFehler, x,trapezFehler, x, simpsonFehler, '-s');
+	%loglog(x,trapezFehler,'-s');
+	%loglog(x,simpsonFehler,'-s');
+	xlabel('Intervallgröße');
+	ylabel('Fehler');
+	grid on;
+
 
 end
 function integral = quadratur(a,b,N,f,regel)
@@ -41,8 +65,14 @@ function subIntegral = calculateSubIntegral(a,b,f,regel)
 
 end
 
-
-
 function throwRegelDoesNotExistExeption(regel)
 	throw(MException('calculateSubIntegral:regel','regel: "%s" does not exist, choose "Rechtecksregel", "Trapezregel", or "Simpsonregel"', regel));
+end
+
+function quadError = calculateLogOfQuadError(quadValues)
+	global genaueLoesung;
+	quadError = [];
+	for index = 1:numel(quadValues)
+		quadError = [quadError, abs(genaueLoesung - quadValues(index)/genaueLoesung)];
+	end
 end
