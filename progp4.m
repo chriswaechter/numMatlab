@@ -1,4 +1,5 @@
 f = @(x)cos(x).*exp(sin(x));
+
 quadratur(0,3,50,f,"Simpsonregel");
 
 %quadratur(0,3,50,@(x)x,"Simpsonregel")
@@ -8,13 +9,15 @@ quad_plot(0,3,f)
 
 
 function quad_plot(a,b,f)
-	global genaueLoesung;
+	g = @(x)1/10.*x;
+	h = @(x)x.^3;
+	global genaueLoesung,g,h;
+
 	N = [2,4,8,16,32,64];
 	rechteckErgebnisse = [];
 	trapezErgebnisse = [];
 	simpsonErgebnisse = [];
 	genaueLoesung = vpa(integral(f,a,b));
-	x = [];
 
 	for index = 1:numel(N)
 		rechteckErgebnisse = [rechteckErgebnisse, quadratur(a,b,N(index),f,"Rechtecksregel")]
@@ -22,16 +25,16 @@ function quad_plot(a,b,f)
 		simpsonErgebnisse = [simpsonErgebnisse, quadratur(a,b,N(index),f,"Simpsonregel")]
 	end
 
-	for index = 1:numel(N)
-		laengeDerIntervalle = (b-a)/N(index)
-		x = [x, laengeDerIntervalle]
-	end
+	x = (b-a)./N;
 
 	rechteckFehler = calculateQuadError(rechteckErgebnisse);
 	trapezFehler = calculateQuadError(trapezErgebnisse);
 	simpsonFehler = calculateQuadError(simpsonErgebnisse);
 
-	loglog(x,rechteckFehler, x,trapezFehler, x, simpsonFehler, '-s');
+	gFunction = g(x);
+	hFunction = h(x);
+
+	loglog(x,rechteckFehler, x,trapezFehler, x, simpsonFehler, x, gFunction, x, hFunction, '-s');
 	%loglog(x,trapezFehler,'-s');
 	%loglog(x,simpsonFehler,'-s');
 	xlabel('Intervallgröße');
