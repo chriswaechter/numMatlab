@@ -27,9 +27,9 @@ function quad_plot(a,b,f)
 		x = [x, laengeDerIntervalle]
 	end
 
-	rechteckFehler = calculateLogOfQuadError(rechteckErgebnisse);
-	trapezFehler = calculateLogOfQuadError(trapezErgebnisse);
-	simpsonFehler = calculateLogOfQuadError(simpsonErgebnisse);
+	rechteckFehler = calculateQuadError(rechteckErgebnisse);
+	trapezFehler = calculateQuadError(trapezErgebnisse);
+	simpsonFehler = calculateQuadError(simpsonErgebnisse);
 
 	loglog(x,rechteckFehler, x,trapezFehler, x, simpsonFehler, '-s');
 	%loglog(x,trapezFehler,'-s');
@@ -69,7 +69,7 @@ function throwRegelDoesNotExistExeption(regel)
 	throw(MException('calculateSubIntegral:regel','regel: "%s" does not exist, choose "Rechtecksregel", "Trapezregel", or "Simpsonregel"', regel));
 end
 
-function quadError = calculateLogOfQuadError(quadValues)
+function quadError = calculateQuadError(quadValues)
 	global genaueLoesung;
 	quadError = [];
 	for index = 1:numel(quadValues)
